@@ -9,7 +9,9 @@ app.get('/api/clock', (c) => {
   })
 })
 
-app.get('*', (c) => {
+app.get('/', (c) => {
+  const isProduction =
+    process.env.NODE_ENV === "production" || import.meta.env.PROD;
   return c.html(
     renderToString(
       <html>
@@ -17,7 +19,7 @@ app.get('*', (c) => {
           <meta charSet="utf-8" />
           <meta content="width=device-width, initial-scale=1" name="viewport" />
           <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
-          {import.meta.env.PROD ? (
+          {isProduction ? (
             <script type="module" src="/static/client.js"></script>
           ) : (
             <script type="module" src="/src/client.tsx"></script>
