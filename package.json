@@ -1,11 +1,9 @@
 {
   "type": "module",
   "scripts": {
-    "dev": "bunx vite",
-    "build": "bun run build:client #TODO: && bun run build:server",
-    "build:client": "bun --bun x vite build --mode client",
-    "build:server": "bun --bun x vite build",
-    "serve": "NODE_ENV=production bun --bun run bin/serve.ts"
+    "dev": "bun run --bun --watch src/index.ts",
+    "build": "bun build src/client.tsx",
+    "serve": "NODE_ENV=production bun --bun run src/index.ts"
   },
   "dependencies": {
     "hono": "^4.0.7",
@@ -13,10 +11,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@hono/vite-dev-server": "^0.8.0",
     "@types/bun": "^1.0.8",
     "@types/react": "^18.2.60",
-    "@types/react-dom": "^18.2.19",
-    "vite": "^5.0.12"
+    "@types/react-dom": "^18.2.19"
   }
 }

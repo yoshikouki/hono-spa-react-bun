@@ -2,13 +2,6 @@
 
 [Hono](https://hono.dev/) SPA application with [React](https://react.dev/) on [Bun.sh](https://bun.sh/)
 
-## Composition
-
-- [Hono](https://hono.dev/)
-- [React](https://react.dev/)
-- [Bun.sh](https://bun.sh/)
-- [Vite](https://ja.vitejs.dev/)
-
 ## Setup
 
 ```bash
