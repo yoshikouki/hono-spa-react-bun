@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun run --bun --watch src/index.ts",
-    "build": "bun build src/client.tsx",
+    "build": "bun build src/client.tsx --outdir dist --minify",
     "serve": "NODE_ENV=production bun --bun run src/index.ts"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
   "devDependencies": {
     "@types/bun": "^1.0.8",
     "@types/react": "^18.2.60",
-    "@types/react-dom": "^18.2.19"
+    "@types/react-dom": "^18.2.19",
+    "bun-hot-reload": "^1.0.2"
   }
 }

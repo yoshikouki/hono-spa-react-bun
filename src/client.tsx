@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 function App() {
   return (
     <>
-      <h1>Hello, Hono with React on Bun!</h1>
+      <h1>Hello, Hono with React on Bun!!1</h1>
       <h2>Example of useState()</h2>
       <Counter />
       <h2>Example of API fetch()</h2>
