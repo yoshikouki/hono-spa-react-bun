@@ -1,13 +1,25 @@
-import { reactRenderer } from "@hono/react-renderer";
-import configureHotReload from "bun-hot-reload";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
-import { App } from "./client";
+import { logger } from "hono/logger";
+// import { reactRenderer } from "@hono/react-renderer";
+import { reactRenderer } from "../middleware/packages/react-renderer/src/index";
+import { App, Layout } from "./app";
 
 const app = new Hono();
 
+app.use(logger());
+app.get("/src/client.tsx", async (c) => {
+  const url = new URL(c.req.url);
+  const file = await Bun.build({
+    entrypoints: [`${process.cwd()}${url.pathname}`],
+  });
+  return new Response(file.outputs[0], {
+    headers: {
+      "content-type": "application/javascript",
+    },
+  });
+});
 app.use("/static/*", serveStatic({ root: "public" }));
-
 app.get("/api/clock", (c) => {
   return c.json({
     time: new Date().toLocaleTimeString(),
@@ -16,23 +28,11 @@ app.get("/api/clock", (c) => {
 
 app.get(
   "*",
-  reactRenderer(({ children }) => {
-    return (
-      <html lang="en">
-        <head>
-          <meta charSet="utf-8" />
-          <meta content="width=device-width, initial-scale=1" name="viewport" />
-          <link
-            rel="stylesheet"
-            href="https://cdn.simplecss.org/simple.min.css"
-          />
-          <script type="module" src="/static/client.js" />
-        </head>
-        <body>
-          <main>{children}</main>
-        </body>
-      </html>
-    );
+  reactRenderer(Layout, {
+    stream: true,
+    readableStreamOptions: {
+      bootstrapScripts: ["/src/client.tsx"],
+    },
   })
 );
 
@@ -43,15 +43,7 @@ app.get("/", (c) => {
 const port = process.env.PORT || 3000;
 console.log(`Listening on http://localhost:${port}`);
 
-export default configureHotReload(
-  {
-    port,
-    fetch: app.fetch,
-  },
-  {
-    buildConfig: {
-      entrypoints: ["src/client.tsx"],
-      outdir: "dist",
-    },
-  }
-);
+export default {
+  port,
+  fetch: app.fetch,
+};
