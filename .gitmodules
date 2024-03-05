@@ -1,0 +1,3 @@
+[submodule "middleware"]
+	path = middleware
+	url = https://github.com/yoshikouki/hono-middleware
