@@ -1,11 +1,12 @@
 {
   "type": "module",
   "scripts": {
-    "dev": "bun run --bun --watch src/index.ts",
+    "dev": "bun run --bun --watch src/index.tsx",
     "build": "bun build src/client.tsx --outdir dist --minify",
     "serve": "NODE_ENV=production bun --bun run src/index.ts"
   },
   "dependencies": {
+    "@hono/react-renderer": "^0.0.2",
     "hono": "^4.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

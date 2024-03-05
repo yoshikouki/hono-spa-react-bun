@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 
-function App() {
+export function App() {
   return (
     <>
       <h1>Hello, Hono with React on Bun!!1</h1>
@@ -10,7 +10,7 @@ function App() {
       <h2>Example of API fetch()</h2>
       <ClockButton />
     </>
-  )
+  );
 }
 
 function Counter() {
@@ -41,7 +41,3 @@ const ClockButton = () => {
     </div>
   )
 }
-
-const domNode = document.getElementById('root')!
-const root = createRoot(domNode)
-root.render(<App />)
