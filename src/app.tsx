@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -26,6 +26,10 @@ export function App() {
       <Counter />
       <h2>Example of API fetch()</h2>
       <ClockButton />
+      <h2>Example of Suspense Component</h2>
+      <Suspense fallback={<p>Loading...</p>}>
+        <SlowComponent />
+      </Suspense>
     </>
   );
 }
@@ -33,7 +37,7 @@ export function App() {
 function Counter() {
   const [count, setCount] = useState(0);
   return (
-    <button onClick={() => setCount(count + 1)}>
+    <button onClick={() => setCount(count + 1)} type="button">
       You clicked me {count} times
     </button>
   );
@@ -60,8 +64,23 @@ const ClockButton = () => {
 
   return (
     <div>
-      <button onClick={handleClick}>Get Server Time</button>
+      <button onClick={handleClick} type="button">
+        Get Server Time
+      </button>
       {response && <pre>{response}</pre>}
     </div>
   );
+};
+
+let result = false;
+const SlowComponent = () => {
+  if (result === false) {
+    throw new Promise<void>((resolve) => {
+      setTimeout(() => {
+        result = true;
+        resolve();
+      }, 3000);
+    });
+  }
+  return <p>Loaded!</p>;
 };
