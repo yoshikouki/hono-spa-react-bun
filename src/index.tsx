@@ -1,8 +1,7 @@
+import { reactRenderer } from "@hono/react-renderer";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { logger } from "hono/logger";
-// import { reactRenderer } from "@hono/react-renderer";
-import { reactRenderer } from "../middleware/packages/react-renderer/src/index";
 import { App, Layout } from "./app";
 
 const app = new Hono();
@@ -30,9 +29,6 @@ app.get(
   "*",
   reactRenderer(Layout, {
     stream: true,
-    readableStreamOptions: {
-      bootstrapScripts: ["/src/client.tsx"],
-    },
   })
 );
 

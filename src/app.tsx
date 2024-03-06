@@ -10,6 +10,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           rel="stylesheet"
           href="https://cdn.simplecss.org/simple.min.css"
         />
+        <script src="/src/client.tsx" async />
       </head>
       <body>
         <main>{children}</main>
